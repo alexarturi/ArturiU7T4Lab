@@ -257,4 +257,62 @@ public class ArrayListAlgorithms {
             }
         }
     }
+
+    /** Returns an arraylist of Integers that contain all mode(s) of the array numList.
+     *  The mode of a list is the value that appears the greatest number of times.
+     *  A list can have one mode, multiple mode, or no mode.
+     *
+     *  If all elements in the list appear the exact same number of times, there is no
+     *  mode and this method should return an empty arraylist.
+     *
+     *  For example, if numList is: [1, 2, 6, 2, 3, 4, 6, 5, 5, 6, 7],
+     *  then numList contains one mode: 6
+     *  and this method returns an arrayList containing 6
+     *
+     *  If numList is: [1, 2, 3, 2, 4, 5, 5, 6],
+     *  then numList contains two modes: 2, 5
+     *  and this method returns an arraylist containing 2 and 5 (in any order)
+     *
+     *  If numList is: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+     *  then numList contains no mode because all values appear the same number of times
+     *  and this method returns an empty arrayList: []
+     *
+     *  Does NOT mutate (modify) elements in numList
+     *  PRECONDITIONS: numList.length > 0
+     *
+     *  @param numList  numList of ints
+     */
+    public static ArrayList<Integer> modes(int[] numList) {
+        ArrayList<Integer> modeList = new ArrayList<>();
+        int maxCount = 0;
+        for (int i = 0; i < numList.length; i++) {
+            int value = numList[i];
+            int count = 0;
+            for (int j = 0; j < numList.length; j++) {
+                if (numList[j] == value) {
+                    count++;
+                }
+            }
+            if (count == maxCount) {
+                if(!modeList.contains(value)){
+                    modeList.add(value);
+                }
+            } else if (count>maxCount){
+                maxCount = count;
+                modeList.clear();
+                modeList.add(value);
+            }
+        }
+        ArrayList<Integer> n = new ArrayList<>();
+        for (int i : numList){
+            if (!n.contains(i)){
+                n.add(i);
+            }
+        }
+        if (modeList.equals(n)){
+            return new ArrayList<>();
+        }
+        return modeList;
+    }
+
 }
